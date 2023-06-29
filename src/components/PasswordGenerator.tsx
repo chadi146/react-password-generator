@@ -6,18 +6,26 @@ import CheckList from "./parts/CheckList";
 import PasswordPlaceholder from "./parts/PasswordPlaceholder";
 import StrengthMeter from "./parts/StrengthMeter";
 import ProgressBar from "./parts/ProgressBar";
+import QuantityRangeInput from "./parts/QuantityRangeInput";
 
 const PasswordGenerator = () => {
   const [checkItems, setCheckedItems] = useState<string[]>([]);
   const [length, setLength] = useState<number>(10);
+  const [quantity, setQuantity] = useState<number>(1);
   const [strength, setStrength] = useState<number>(2);
   const [copyBtnActive, setCopyBtnActive] = useState<boolean>(false);
+  const [exportTextFile, setExportTextFile] = useState<boolean>(false);
   const [password, setPassword] = useState<string>("");
 
   const handleLengthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value);
     setLength(value);
     setStrength(evalStrength(value, checkItems));
+  };
+
+  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.target.value);
+    setQuantity(value);
   };
 
   const ItemsCheckedHandler = useCallback(
@@ -35,16 +43,26 @@ const PasswordGenerator = () => {
 
   return (
     <main className="main-grid | grid container">
-      <PasswordPlaceholder
-        setCopyBtnActive={setCopyBtnActive}
-        copyBtnActive={copyBtnActive}
-        password={password}
-      />
+      <div className="main-grid | grid">
+        <PasswordPlaceholder
+          setCopyBtnActive={setCopyBtnActive}
+          exportTextFile={exportTextFile}
+          setExportTextFile={setExportTextFile}
+          copyBtnActive={copyBtnActive}
+          password={password}
+        />
 
-      <ProgressBar key="p-s" className="password-strength"/>
-      <StrengthMeter strength={strength} />
-      <ProgressBar key="s-s" className="strength-settings"/>
+        <ProgressBar keyIndex="p-s" className="password-strength" />
+        <StrengthMeter strength={strength} />
+        <ProgressBar keyIndex="s-s" className="strength-settings" />
+      </div>
+
       <div className="grid bg-light padding-md">
+        <QuantityRangeInput
+          quantity={quantity}
+          handleQuantityChange={handleQuantityChange}
+        />
+
         <CharacterRangeInput
           length={length}
           handleLengthChange={handleLengthChange}

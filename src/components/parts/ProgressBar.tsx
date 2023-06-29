@@ -2,12 +2,12 @@ import React from "react";
 
 type ProgressBarType = {
   className?: string;
-  key?: string;
+  keyIndex?: string;
 };
 
-const ProgressBar = ({ className, key = undefined }: ProgressBarType) => {
+const ProgressBar = ({ className, keyIndex = undefined }: ProgressBarType) => {
   return (
-    <div className={`progress-bar ${className}`} key={key}>
+    <div className={`progress-bar ${className}`} key={keyIndex}>
       <span></span>
     </div>
   );

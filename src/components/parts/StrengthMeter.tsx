@@ -54,7 +54,7 @@ const StrengthMeter = ({ strength }: StrengthMeterProps) => {
   };
 
   return (
-    <div className="flex flex-row padding-block-sm padding-inline-md bg-dark uppercase line-height-1">
+    <div className="flex flex-row padding-block-sm padding-inline-md bg-dark uppercase line-height-1" style={{maxHeight: '70px'}}>
       <p className="color-light">Strength</p>
       <div className="flex flex-row">
         <span className="strength | fs-md">{strengthText}</span>
