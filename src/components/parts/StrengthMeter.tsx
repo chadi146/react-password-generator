@@ -1,10 +1,14 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 type StrengthMeterProps = {
   strength: number;
+  passwordToEvaluate?: string;
 };
 
-const StrengthMeter = ({ strength }: StrengthMeterProps) => {
+const StrengthMeter = ({
+  strength,
+  passwordToEvaluate,
+}: StrengthMeterProps) => {
   const [strengthText, setStrengthText] = useState<string>("");
 
   useEffect(() => {
@@ -54,8 +58,15 @@ const StrengthMeter = ({ strength }: StrengthMeterProps) => {
   };
 
   return (
-    <div className="flex flex-row padding-block-sm padding-inline-md bg-dark uppercase line-height-1" style={{maxHeight: '70px'}}>
-      <p className="color-light">Strength</p>
+    <div
+      className="flex flex-row padding-block-sm padding-inline-md bg-dark uppercase line-height-1"
+      style={{ maxHeight: "70px", width: '100%' }}
+    >
+      <p className="color-light">
+        {passwordToEvaluate && passwordToEvaluate.trim() !== ""
+          ? passwordToEvaluate
+          : "Strength"}
+      </p>
       <div className="flex flex-row">
         <span className="strength | fs-md">{strengthText}</span>
         <div className="scale" data-value={strength}>

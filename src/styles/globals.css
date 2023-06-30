@@ -1,3 +1,5 @@
+@import "react-toastify/dist/ReactToastify.css";
+
 /* Box sizing rules */
 *,
 *::before,
@@ -116,7 +118,10 @@ body {
   outline-offset: 2px;
 }
 
-.button {
+.button,
+.button-icon,
+input[data-type="upload"]::-webkit-file-upload-button,
+input[data-type="upload"] {
   --bg-color: transparent;
   --border-color: var(--bg-color);
   --color: var(--gray-100);
@@ -135,31 +140,43 @@ body {
 html.dark .button {
   --color: var(--gray-800);
 }
+
+html.dark .button-icon {
+  --color: var(--gray-200);
+}
+
 .button svg {
   pointer-events: none;
 }
+
+input[data-type="upload"] {
+  position: relative;
+  width: 100%;
+  --border-color: var(--green);
+  padding: 0;
+}
+
 .button[data-type="copy"] {
   position: relative;
   --color: var(--green);
   width: 5rem;
   aspect-ratio: 1;
 }
-.button[data-type="copy"]:hover {
+
+.button[data-type="export"] {
+  position: relative;
+  --color: var(--yellow);
+  width: 5rem;
+  aspect-ratio: 1;
+}
+
+.button[data-type="copy"]:hover,
+.button[data-type="export"]:hover {
   --color: var(--gray-200);
   --bg-color: hsl(0 100% 100% / 0.05);
   --border-color: transparent;
 }
-.button[data-type="copy"].active {
-  --bg-color: transparent;
-  --color: var(--green);
-}
-.button[data-type="copy"].active::before {
-  position: absolute;
-  content: "COPIED";
-  top: 50%;
-  left: -70%;
-  transform: translateY(-50%);
-}
+
 .button[data-type="action"] {
   --bg-color: var(--green);
 }
@@ -167,6 +184,36 @@ html.dark .button {
   --border-color: var(--bg-color);
   --color: var(--bg-color);
   background-color: transparent;
+}
+
+button[data-type="toggle"] {
+  border-color: var(--yellow);
+  color: var(--yellow);
+  background-color: transparent;
+}
+
+.settings {
+  display: inline-flex;
+  width: 94%;
+  margin-left: 1%;
+  margin-bottom: 20px;
+}
+
+.wrapper-upload {
+  position: relative;
+}
+
+.wrapper-upload svg {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 20px;
+  background: white;
+  height: 30px;
+  width: 30px;
+  padding: 5px;
+  border-radius: 12px;
+  cursor: pointer;
 }
 
 .range {
@@ -270,7 +317,7 @@ input[type="checkbox"]:focus-visible ~ .checkbox__box {
 .container {
   width: min(100% - 2rem, 33.75rem);
   margin-inline: auto;
-  padding-block: clamp(4rem, 8vw, 8.5rem) 2rem;
+  padding-block: clamp(5.4rem, 8vw, 8.5rem) 2rem;
 }
 
 .main-grid {
@@ -364,12 +411,53 @@ input[type="checkbox"]:focus-visible ~ .checkbox__box {
   white-space: nowrap;
   width: 1px;
 }
+.no-padding {
+  padding-block: inherit;
+}
+
+.main-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.main-page > svg {
+  margin-bottom: 50px;
+}
+
+.main-page p {
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.main-page .links-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.main-page .links-container a {
+  border-radius: 12px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: initial;
+}
+
+.main-page .links-container a:first-child {
+  margin-right: 30px;
+}
 
 .header {
   position: fixed;
   width: 100%;
   height: 50px;
-  top: 0;
+  top: 15px;
   left: 0;
   display: flex;
   align-items: center;
@@ -388,7 +476,7 @@ input[type="checkbox"]:focus-visible ~ .checkbox__box {
   z-index: -1;
   position: absolute;
   top: 71px;
-  left: 2px
+  left: 2px;
 }
 
 .strength-settings {

@@ -1,26 +1,40 @@
-import { evalStrength, generatePassword, listItems } from "@/utils/helpers";
+import {
+  PasswordOptions,
+  calculatePasswordStrength,
+  generatePassword,
+  generatePasswordsBatch,
+  listItems,
+} from "@/utils/helpers";
 import React, { useCallback, useState } from "react";
 import { BsFillArrowRightSquareFill } from "react-icons/bs";
 import CharacterRangeInput from "./parts/CharacterRangeInput";
 import CheckList from "./parts/CheckList";
 import PasswordPlaceholder from "./parts/PasswordPlaceholder";
-import StrengthMeter from "./parts/StrengthMeter";
 import ProgressBar from "./parts/ProgressBar";
 import QuantityRangeInput from "./parts/QuantityRangeInput";
+import StrengthMeter from "./parts/StrengthMeter";
 
 const PasswordGenerator = () => {
-  const [checkItems, setCheckedItems] = useState<string[]>([]);
+  const [checkItems, setCheckedItems] = useState<PasswordOptions>({});
   const [length, setLength] = useState<number>(10);
   const [quantity, setQuantity] = useState<number>(1);
   const [strength, setStrength] = useState<number>(2);
   const [copyBtnActive, setCopyBtnActive] = useState<boolean>(false);
   const [exportTextFile, setExportTextFile] = useState<boolean>(false);
-  const [password, setPassword] = useState<string>("");
+  const [withAdvancedFields, setWithAdvancedFields] = useState<boolean>(false);
+  const [passwords, setPasswords] = useState<string[]>([]);
 
   const handleLengthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value);
     setLength(value);
-    setStrength(evalStrength(value, checkItems));
+    setCheckedItems((prev) => {
+      return {
+        ...prev,
+        minLength: value,
+        maxLength: value,
+      };
+    });
+    setStrength(calculatePasswordStrength(checkItems));
   };
 
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,17 +43,25 @@ const PasswordGenerator = () => {
   };
 
   const ItemsCheckedHandler = useCallback(
-    (checkItemList: string[]) => {
-      setCheckedItems(checkItemList);
-      setStrength(evalStrength(length, checkItemList));
+    (checkItemList: PasswordOptions) => {
+      setCheckedItems((prev) => {
+        return {
+          ...prev,
+          ...checkItemList,
+          minLength: length,
+          maxLength: length,
+        };
+      });
+      setStrength(calculatePasswordStrength(checkItemList));
     },
     [length]
   );
 
   const setPasswordWrapper = useCallback(() => {
-    setPassword(generatePassword(length, checkItems));
+    setExportTextFile(quantity > 1 ? true : false);
+    setPasswords(generatePasswordsBatch(quantity, checkItems));
     setCopyBtnActive(false);
-  }, [length, checkItems]);
+  }, [checkItems, quantity]);
 
   return (
     <main className="main-grid | grid container">
@@ -47,9 +69,8 @@ const PasswordGenerator = () => {
         <PasswordPlaceholder
           setCopyBtnActive={setCopyBtnActive}
           exportTextFile={exportTextFile}
-          setExportTextFile={setExportTextFile}
           copyBtnActive={copyBtnActive}
-          password={password}
+          passwords={passwords}
         />
 
         <ProgressBar keyIndex="p-s" className="password-strength" />
@@ -67,8 +88,20 @@ const PasswordGenerator = () => {
           length={length}
           handleLengthChange={handleLengthChange}
         />
+
+        <button
+          className="generate-btn | button"
+          data-type="toggle"
+          onClick={() => {
+            setWithAdvancedFields((prev) => !prev);
+          }}
+        >
+          {withAdvancedFields ? "Hide" : "Show"} Advanced Fields
+        </button>
+
         <CheckList
           listItems={listItems}
+          withAdvanced={withAdvancedFields}
           onCheckedItemsChange={ItemsCheckedHandler}
         />
         <button

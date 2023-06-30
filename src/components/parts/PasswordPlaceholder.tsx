@@ -1,44 +1,32 @@
-import React from "react";
-import { BiSolidCopy, BiExport } from "react-icons/bi";
+import { exportPasswords } from "@/utils/helpers";
+import React, { useCallback } from "react";
+import { BiExport, BiSolidCopy } from "react-icons/bi";
 
 type PasswordPlaceholderType = {
   setCopyBtnActive: React.Dispatch<React.SetStateAction<boolean>>;
   copyBtnActive: boolean;
   exportTextFile: boolean;
-  setExportTextFile: React.Dispatch<React.SetStateAction<boolean>>;
-  password: string;
+  passwords: string[];
 };
 
 const PasswordPlaceholder = ({
   setCopyBtnActive,
   copyBtnActive,
   exportTextFile,
-  setExportTextFile,
-  password,
+  passwords,
 }: PasswordPlaceholderType) => {
   const handleCopyClick = () => {
     setCopyBtnActive(true);
     if (navigator.clipboard) {
-      const text = password;
+      const text =
+        passwords.length > 1 ? JSON.stringify(passwords) : passwords[0];
       navigator.clipboard.writeText(text);
     }
   };
 
-  const handleExportPasswordsFile = () => {
-    const element = document.createElement("a");
-    const file = new Blob([password], {
-      type: "text/plain;charset=utf-8",
-    });
-    element.href = URL.createObjectURL(file);
-    element.download = "myPasswords.txt";
-    document.body.appendChild(element);
-    element.click();
-
-    // remove element after action is done
-    element.remove();
-
-    setExportTextFile(false);
-  };
+  const handleExportPasswordsFile = useCallback(() => {
+    exportPasswords(passwords);
+  }, [passwords]);
 
   return (
     <div
@@ -51,12 +39,14 @@ const PasswordPlaceholder = ({
         id="output"
         className="output | fs-lg"
         placeholder="P4$5W0rD!"
-        value={password}
+        value={
+          passwords.length > 1 ? `${passwords.length} passwords` : passwords
+        }
         disabled
       />
       {exportTextFile && (
         <button
-          className={`copy-btn | button`}
+          className={`export-btn | button-icon`}
           data-type="export"
           onClick={handleExportPasswordsFile}
         >
@@ -68,7 +58,7 @@ const PasswordPlaceholder = ({
       )}
 
       <button
-        className={`copy-btn | button ${copyBtnActive ? "active" : ""}`}
+        className={`copy-btn | button-icon ${copyBtnActive ? "active" : ""}`}
         data-type="copy"
         onClick={handleCopyClick}
       >
