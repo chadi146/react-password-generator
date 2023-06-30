@@ -1,11 +1,10 @@
-import Header from "@/components/Header";
-import PasswordGenerator from "@/components/PasswordGenerator";
-import ThemeSwitcher from "@/components/ThemeSwitcher";
+
+import { Header } from "@/components";
 import Head from "next/head";
 import Link from "next/link";
 import { CgPassword } from "react-icons/cg";
-import { PiPasswordBold } from "react-icons/pi";
 import { MdLockPerson } from "react-icons/md";
+import { PiPasswordBold } from "react-icons/pi";
 
 // TODO: add all features existing in https://passwordsgenerator.net/plus/
 // TODO: implement google extension feature

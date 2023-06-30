@@ -1,7 +1,7 @@
 import { useTheme } from "next-themes";
 import { memo, useCallback, useEffect, useState } from "react";
 import { FaMoon, FaSun } from "react-icons/fa";
-import "../styles/themeSwitcher.css";
+import "../../styles/themeSwitcher.css";
 
 const ThemeSwitcher = () => {
   const { systemTheme, theme, setTheme } = useTheme();
@@ -21,10 +21,6 @@ const ThemeSwitcher = () => {
       setToggled(true);
     }
   }, [currentTheme, setTheme]);
-
-  const onChange = (evt: any) => {
-    setToggled(evt.target.checked);
-  };
 
   return (
     <div className="theme-switcher-wrapper">

@@ -84,13 +84,13 @@ html.light {
   --gray-200: hsl(252, 17%, 6%);
   --gray-400: hsl(248, 15%, 11%);
   --gray-500: hsl(247, 11%, 15%);
-  --gray-700: hsl(252, 5%, 79%);
-  --gray-800: hsl(257, 5%, 73%);
-  --gray-900: hsl(252, 11%, 91%);
-  --green: hsl(127, 70%, 85%);
-  --yellow: hsl(42, 60%, 80%);
-  --orange: hsl(13, 70%, 75%);
-  --red: hsl(0, 70%, 70%);
+  --gray-700: hsl(252, 11%, 91%);
+  --gray-800: hsl(257, 5%, 78%);
+  --gray-900: white;
+  --green: hsl(127, 100%, 52%);
+  --yellow: hsl(42, 91%, 52%);
+  --orange: hsl(13, 95%, 52%);
+  --red: hsl(0, 91%, 52%);
 }
 
 html.dark {
@@ -456,13 +456,21 @@ input[type="checkbox"]:focus-visible ~ .checkbox__box {
 .header {
   position: fixed;
   width: 100%;
-  height: 50px;
-  top: 15px;
+  height: 65px;
+  top: 0px;
   left: 0;
   display: flex;
   align-items: center;
   z-index: 10;
   justify-content: center;
+}
+
+.back-arrow {
+  font-size: 28px;
+  color: initial;
+  margin-right: 10px;
+  position: relative;
+  top: 3px;
 }
 
 .progress-bar {

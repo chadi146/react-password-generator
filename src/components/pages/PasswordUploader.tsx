@@ -1,16 +1,12 @@
-import {
-  PasswordAnalysis,
-  PasswordOptions,
-  analyzePasswords,
-  importPasswordsFromCSV,
-  listItems,
-} from "@/utils/helpers";
 import React, { ChangeEvent, useCallback, useState } from "react";
 import { GrPowerReset } from "react-icons/gr";
 import { toast } from "react-toastify";
 import CharacterRangeInput from "./parts/CharacterRangeInput";
 import CheckList from "./parts/CheckList";
 import StrengthMeter from "./parts/StrengthMeter";
+import { listItems } from "@/constants";
+import { PasswordAnalysis, PasswordOptions } from "@/models";
+import { AnalyzerHelper, CSVHelper } from "@/helpers";
 
 const PasswordUploader = () => {
   const [passwords, setPasswords] = useState<PasswordAnalysis[]>([]);
@@ -18,33 +14,38 @@ const PasswordUploader = () => {
   const [resetUpload, setResetUpload] = useState<boolean>(false);
   const [length, setLength] = useState<number>(10);
 
-  const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      importPasswordsFromCSV(file)
-        .then((importedPasswords) => {
-          setPasswords(analyzePasswords(importedPasswords, checkItems));
-        })
-        .catch((error) => {
-          event.target.value = null as any;
-          toast(
-            "Failed to upload csv file. Something is wrong in the format. Kindly re-check :)",
-            {
-              hideProgressBar: true,
-              autoClose: 3000,
-              type: "error",
-              position: "top-center",
-            }
-          );
-          console.error(error);
-        });
-    }
+  const handleFileUpload = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0];
+      if (file) {
+        CSVHelper.importPasswordsFromCSV(file)
+          .then((importedPasswords) => {
+            setPasswords(
+              AnalyzerHelper.analyzePasswords(importedPasswords, checkItems)
+            );
+          })
+          .catch((error) => {
+            event.target.value = null as any;
+            toast(
+              "Failed to upload csv file. Something is wrong in the format. Kindly re-check :)",
+              {
+                hideProgressBar: true,
+                autoClose: 3000,
+                type: "error",
+                position: "top-center",
+              }
+            );
+            console.error(error);
+          });
+      }
 
-    if (resetUpload) {
-      event.target.value = null as any;
-      setResetUpload(false);
-    }
-  };
+      if (resetUpload) {
+        event.target.value = null as any;
+        setResetUpload(false);
+      }
+    },
+    [resetUpload, checkItems]
+  );
 
   const handleLengthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value);
@@ -100,7 +101,7 @@ const PasswordUploader = () => {
         />
       </div>
       {passwords && passwords.length > 0 && (
-        <details>
+        <details open>
           <summary>
             <p className="settings">Evaluated Passwords</p>
           </summary>

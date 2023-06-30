@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 type ProgressBarType = {
   className?: string;
@@ -13,4 +13,4 @@ const ProgressBar = ({ className, keyIndex = undefined }: ProgressBarType) => {
   );
 };
 
-export default ProgressBar;
+export default memo(ProgressBar);

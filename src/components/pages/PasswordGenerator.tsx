@@ -1,10 +1,3 @@
-import {
-  PasswordOptions,
-  calculatePasswordStrength,
-  generatePassword,
-  generatePasswordsBatch,
-  listItems,
-} from "@/utils/helpers";
 import React, { useCallback, useState } from "react";
 import { BsFillArrowRightSquareFill } from "react-icons/bs";
 import CharacterRangeInput from "./parts/CharacterRangeInput";
@@ -13,6 +6,9 @@ import PasswordPlaceholder from "./parts/PasswordPlaceholder";
 import ProgressBar from "./parts/ProgressBar";
 import QuantityRangeInput from "./parts/QuantityRangeInput";
 import StrengthMeter from "./parts/StrengthMeter";
+import { PasswordOptions } from "@/models";
+import { CalculatorHelper, GeneratorHelper } from "@/helpers";
+import { listItems } from "@/constants";
 
 const PasswordGenerator = () => {
   const [checkItems, setCheckedItems] = useState<PasswordOptions>({});
@@ -34,7 +30,7 @@ const PasswordGenerator = () => {
         maxLength: value,
       };
     });
-    setStrength(calculatePasswordStrength(checkItems));
+    setStrength(CalculatorHelper.calculatePasswordStrength(checkItems));
   };
 
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,14 +48,14 @@ const PasswordGenerator = () => {
           maxLength: length,
         };
       });
-      setStrength(calculatePasswordStrength(checkItemList));
+      setStrength(CalculatorHelper.calculatePasswordStrength(checkItemList));
     },
     [length]
   );
 
   const setPasswordWrapper = useCallback(() => {
     setExportTextFile(quantity > 1 ? true : false);
-    setPasswords(generatePasswordsBatch(quantity, checkItems));
+    setPasswords(GeneratorHelper.generatePasswordsBatch(quantity, checkItems));
     setCopyBtnActive(false);
   }, [checkItems, quantity]);
 

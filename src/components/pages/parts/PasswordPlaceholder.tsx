@@ -1,5 +1,5 @@
-import { exportPasswords } from "@/utils/helpers";
-import React, { useCallback } from "react";
+import { CSVHelper } from "@/helpers";
+import React, { memo, useCallback } from "react";
 import { BiExport, BiSolidCopy } from "react-icons/bi";
 
 type PasswordPlaceholderType = {
@@ -15,17 +15,17 @@ const PasswordPlaceholder = ({
   exportTextFile,
   passwords,
 }: PasswordPlaceholderType) => {
-  const handleCopyClick = () => {
+  const handleCopyClick = useCallback(() => {
     setCopyBtnActive(true);
     if (navigator.clipboard) {
       const text =
         passwords.length > 1 ? JSON.stringify(passwords) : passwords[0];
       navigator.clipboard.writeText(text);
     }
-  };
+  }, [setCopyBtnActive, passwords]);
 
   const handleExportPasswordsFile = useCallback(() => {
-    exportPasswords(passwords);
+    CSVHelper.exportPasswords(passwords);
   }, [passwords]);
 
   return (
@@ -69,4 +69,4 @@ const PasswordPlaceholder = ({
   );
 };
 
-export default PasswordPlaceholder;
+export default memo(PasswordPlaceholder);

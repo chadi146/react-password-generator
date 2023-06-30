@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 
 type StrengthMeterProps = {
   strength: number;
@@ -27,7 +27,7 @@ const StrengthMeter = ({
     }
   };
 
-  const renderScaleBars = () => {
+  const renderScaleBars = useCallback(() => {
     const bars = [];
 
     for (let i = 1; i <= 4; i++) {
@@ -40,7 +40,7 @@ const StrengthMeter = ({
     }
 
     return bars;
-  };
+  }, [strength]);
 
   const getBarColor = (barIndex: number) => {
     switch (barIndex) {
@@ -60,7 +60,7 @@ const StrengthMeter = ({
   return (
     <div
       className="flex flex-row padding-block-sm padding-inline-md bg-dark uppercase line-height-1"
-      style={{ maxHeight: "70px", width: '100%' }}
+      style={{ maxHeight: "70px", width: "100%" }}
     >
       <p className="color-light">
         {passwordToEvaluate && passwordToEvaluate.trim() !== ""
@@ -77,4 +77,4 @@ const StrengthMeter = ({
   );
 };
 
-export default StrengthMeter;
+export default memo(StrengthMeter);

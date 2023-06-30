@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 type CharacterRangeInputType = {
   handleLengthChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -34,4 +34,4 @@ const CharacterRangeInput = ({
   );
 };
 
-export default CharacterRangeInput;
+export default memo(CharacterRangeInput);

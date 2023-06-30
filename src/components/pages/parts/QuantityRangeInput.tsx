@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 type QuantityRangeInputType = {
   handleQuantityChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -34,4 +34,4 @@ const QuantityRangeInput = ({
   );
 };
 
-export default QuantityRangeInput;
+export default memo(QuantityRangeInput);

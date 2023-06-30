@@ -1,7 +1,5 @@
-import Header from "@/components/Header";
-import PasswordUploader from "@/components/PasswordUploader";
+import { Header, PasswordUploader } from "@/components";
 import Head from "next/head";
-import React from "react";
 
 const uploader = () => {
   return (
@@ -11,7 +9,7 @@ const uploader = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <main>
-        <Header title="Password(s) Uploader" />
+        <Header withBackButton title="Password(s) Uploader" />
         <PasswordUploader />
       </main>
     </>
