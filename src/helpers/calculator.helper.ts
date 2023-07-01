@@ -1,6 +1,14 @@
 import { PasswordOptions } from "@/models/password.model";
 
+/**
+ * Helper class for calculating the strength of a password based on given options.
+ */
 export class CalculatorHelper {
+  /**
+   * Calculates the strength of a password based on the provided options.
+   * @param options - The PasswordOptions object containing the calculation options.
+   * @returns The strength value of the password (ranging from 1 to 4).
+   */
   static calculatePasswordStrength(options: PasswordOptions = {}): number {
     let strength = 0;
 

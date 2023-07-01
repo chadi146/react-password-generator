@@ -1,4 +1,3 @@
-
 import { Header } from "@/components";
 import Head from "next/head";
 import Link from "next/link";

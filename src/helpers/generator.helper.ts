@@ -1,6 +1,15 @@
 import { PasswordOptions } from "@/models/password.model";
 
+/**
+ * Helper class for generating passwords.
+ */
 export class GeneratorHelper {
+  /**
+   * Generates a batch of passwords based on the specified options.
+   * @param count - The number of passwords to generate.
+   * @param options - The password generation options.
+   * @returns An array of generated passwords.
+   */
   static generatePasswordsBatch(
     count: number,
     options: PasswordOptions = {}
@@ -15,6 +24,11 @@ export class GeneratorHelper {
     return passwords;
   }
 
+  /**
+   * Generates a password based on the specified options.
+   * @param options - The password generation options.
+   * @returns The generated password.
+   */
   private static generatePassword(options: PasswordOptions = {}): string {
     // Define default character sets and minimum counts
     const defaultSymbols = "!\";#$%&'()*+,-./:;<=>?@[]^_`{|}~";

@@ -1,7 +1,6 @@
-import React from "react";
-import ThemeSwitcher from "./ThemeSwitcher";
-import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import Link from "next/link";
+import { BsFillArrowLeftCircleFill } from "react-icons/bs";
+import ThemeSwitcher from "./ThemeSwitcher";
 
 type HeaderType = {
   title: string;

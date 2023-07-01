@@ -1,6 +1,14 @@
 import { PasswordAnalysis } from "@/models/password.model";
 
+/**
+ * Helper class for importing and exporting passwords to/from CSV format.
+ */
 export class CSVHelper {
+  /**
+   * Imports passwords from a CSV file.
+   * @param file - The CSV file to import passwords from.
+   * @returns A Promise that resolves to an array of PasswordAnalysis objects.
+   */
   static importPasswordsFromCSV(file: File): Promise<PasswordAnalysis[]> {
     return new Promise((resolve, reject) => {
       const passwordEntries: PasswordAnalysis[] = [];
@@ -51,6 +59,10 @@ export class CSVHelper {
     });
   }
 
+  /**
+   * Exports passwords to a CSV file and triggers a download.
+   * @param passwords - An array of passwords to export.
+   */
   static exportPasswords(passwords: string[]): void {
     const exportedData = this.convertToCSV(passwords);
 
@@ -64,6 +76,11 @@ export class CSVHelper {
     downloadLink.remove();
   }
 
+  /**
+   * Converts an array of strings to a CSV string.
+   * @param array - The array of strings to convert.
+   * @returns The CSV data as a string.
+   */
   private static convertToCSV(array: string[]): string {
     const header = "Id,Value";
     const csvContent = array

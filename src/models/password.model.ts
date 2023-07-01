@@ -1,9 +1,15 @@
+/**
+ * Options for analyzed password object.
+ */
 export type PasswordAnalysis = {
   id: string;
   password: string;
   strength: number;
 };
 
+/**
+ * Options for password generation.
+ */
 export type PasswordOptions = {
   includeSymbols?: boolean;
   includeNumbers?: boolean;

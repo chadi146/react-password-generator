@@ -1,6 +1,15 @@
 import { PasswordAnalysis, PasswordOptions } from "@/models/password.model";
 
+/**
+ * Helper class for analyzing passwords based on given options.
+ */
 export class AnalyzerHelper {
+  /**
+   * Analyzes an array of passwords based on the provided options.
+   * @param passwords - An array of PasswordAnalysis objects representing passwords to be analyzed.
+   * @param options - The PasswordOptions object containing the analysis options.
+   * @returns An array of PasswordAnalysis objects with analyzed password strength.
+   */
   static analyzePasswords(
     passwords: PasswordAnalysis[],
     options: PasswordOptions
@@ -69,20 +78,33 @@ export class AnalyzerHelper {
     return passwordAnalysis;
   }
 
-  // Utility function to check if a password contains any of the specified characters
+  /**
+   * Checks if a password contains any of the specified characters.
+   * @param password - The password string to check.
+   * @param characters - Optional string of characters to check for.
+   * @returns A boolean indicating if the password contains any of the specified characters.
+   */
   private static containsAny(password: string, characters?: string): boolean {
     if (!characters) {
-      return true;
+      return true; // If no characters specified, consider it as a match
     }
     return characters.split("").some((char) => password.includes(char));
   }
 
-  // Utility function to check if a password has any duplicate characters
+  /**
+   * Checks if a password has any duplicate characters.
+   * @param password - The password string to check.
+   * @returns A boolean indicating if the password has any duplicate characters.
+   */
   private static hasDuplicates(password: string): boolean {
     return new Set(password).size !== password.length;
   }
 
-  // Utility function to check if a password has sequential characters
+  /**
+   * Checks if a password has sequential characters.
+   * @param password - The password string to check.
+   * @returns A boolean indicating if the password has sequential characters.
+   */
   private static hasSequentialChars(password: string): boolean {
     for (let i = 0; i < password.length - 2; i++) {
       const char1 = password.charCodeAt(i);
@@ -95,12 +117,16 @@ export class AnalyzerHelper {
     return false;
   }
 
-  // Utility function to check if a password starts with a letter
+  /**
+   * Checks if a password starts with a letter.
+   * @param password - The password string to check.
+   * @returns A boolean indicating if the password starts with a letter.
+   */
   private static startsWithLetter(password: string): boolean {
     const firstChar = password.charCodeAt(0);
     return (
-      (firstChar >= 65 && firstChar <= 90) ||
-      (firstChar >= 97 && firstChar <= 122)
+      (firstChar >= 65 && firstChar <= 90) || // ASCII codes for A-Z
+      (firstChar >= 97 && firstChar <= 122) // ASCII codes for a-z
     );
   }
 }

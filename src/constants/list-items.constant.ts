@@ -1,5 +1,6 @@
 import { CheckItemEnum } from "@/components/pages/parts/CheckList";
 
+/* Settings Options list */
 export const listItems = [
   {
     id: CheckItemEnum.uppercase,

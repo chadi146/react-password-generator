@@ -1,3 +1,6 @@
+import { listItems } from "@/constants";
+import { CalculatorHelper, GeneratorHelper } from "@/helpers";
+import { PasswordOptions } from "@/models";
 import React, { useCallback, useState } from "react";
 import { BsFillArrowRightSquareFill } from "react-icons/bs";
 import CharacterRangeInput from "./parts/CharacterRangeInput";
@@ -6,9 +9,6 @@ import PasswordPlaceholder from "./parts/PasswordPlaceholder";
 import ProgressBar from "./parts/ProgressBar";
 import QuantityRangeInput from "./parts/QuantityRangeInput";
 import StrengthMeter from "./parts/StrengthMeter";
-import { PasswordOptions } from "@/models";
-import { CalculatorHelper, GeneratorHelper } from "@/helpers";
-import { listItems } from "@/constants";
 
 const PasswordGenerator = () => {
   const [checkItems, setCheckedItems] = useState<PasswordOptions>({});

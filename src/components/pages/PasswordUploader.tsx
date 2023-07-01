@@ -1,12 +1,12 @@
+import { listItems } from "@/constants";
+import { AnalyzerHelper, CSVHelper } from "@/helpers";
+import { PasswordAnalysis, PasswordOptions } from "@/models";
 import React, { ChangeEvent, useCallback, useState } from "react";
 import { GrPowerReset } from "react-icons/gr";
 import { toast } from "react-toastify";
 import CharacterRangeInput from "./parts/CharacterRangeInput";
 import CheckList from "./parts/CheckList";
 import StrengthMeter from "./parts/StrengthMeter";
-import { listItems } from "@/constants";
-import { PasswordAnalysis, PasswordOptions } from "@/models";
-import { AnalyzerHelper, CSVHelper } from "@/helpers";
 
 const PasswordUploader = () => {
   const [passwords, setPasswords] = useState<PasswordAnalysis[]>([]);
