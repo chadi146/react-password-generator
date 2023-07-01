@@ -9,6 +9,7 @@ import PasswordPlaceholder from "./parts/PasswordPlaceholder";
 import ProgressBar from "./parts/ProgressBar";
 import QuantityRangeInput from "./parts/QuantityRangeInput";
 import StrengthMeter from "./parts/StrengthMeter";
+import InstructionGuide from "./parts/InstructionGuide";
 
 const PasswordGenerator = () => {
   const [checkItems, setCheckedItems] = useState<PasswordOptions>({});
@@ -60,8 +61,8 @@ const PasswordGenerator = () => {
   }, [checkItems, quantity]);
 
   return (
-    <main className="main-grid | grid container">
-      <div className="main-grid | grid">
+    <main className="main-grid grid container">
+      <div className="main-grid grid container-section">
         <PasswordPlaceholder
           setCopyBtnActive={setCopyBtnActive}
           exportTextFile={exportTextFile}
@@ -72,6 +73,8 @@ const PasswordGenerator = () => {
         <ProgressBar keyIndex="p-s" className="password-strength" />
         <StrengthMeter strength={strength} />
         <ProgressBar keyIndex="s-s" className="strength-settings" />
+
+        <InstructionGuide />
       </div>
 
       <div className="grid bg-light padding-md">

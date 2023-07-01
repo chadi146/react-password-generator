@@ -314,12 +314,6 @@ input[type="checkbox"]:focus-visible ~ .checkbox__box {
   background-color: var(--color, transparent);
 }
 
-.container {
-  width: min(100% - 2rem, 33.75rem);
-  margin-inline: auto;
-  padding-block: clamp(5.4rem, 8vw, 8.5rem) 2rem;
-}
-
 .main-grid {
   --gap: clamp(1rem, 0.75rem + 2vw, 1.5rem);
 }
@@ -340,6 +334,49 @@ input[type="checkbox"]:focus-visible ~ .checkbox__box {
   gap: var(--gap, --spacing-md);
 }
 
+.container {
+  display: flex;
+  justify-content: space-evenly;
+  height: calc(100% - 75px);
+  position: relative;
+  top: 75px;
+  font-size: 15px;
+  padding-block: initial;
+  margin-inline: initial;
+  width: initial;
+}
+
+.container-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.container-section .strength-settings {
+  display: none;
+}
+
+@media only screen and (max-width: 930px) {
+  .container {
+    width: min(100% - 2rem, 33.75rem);
+    margin-inline: auto;
+    padding-block: clamp(5.4rem, 8vw, 8.5rem) 2rem;
+    display: grid;
+    font-size: inherit;
+  }
+
+  .container-section {
+    display: grid;
+  }
+
+  .container-section .strength-settings {
+    display: block;
+  }
+
+  .guide-wrapper {
+    display: none !important;
+  }
+}
+
 .flex {
   display: flex;
   gap: var(--gap, 1rem);
@@ -348,6 +385,10 @@ input[type="checkbox"]:focus-visible ~ .checkbox__box {
 .flex-row {
   align-items: center;
   justify-content: space-between;
+}
+
+.flex-column {
+  flex-direction: column;
 }
 
 .bg-light {
@@ -396,6 +437,10 @@ input[type="checkbox"]:focus-visible ~ .checkbox__box {
 
 .padding-left-md {
   padding-inline-start: var(--spacing-md);
+}
+
+.padding-right-md {
+  padding-inline-end: var(--spacing-md);
 }
 
 .padding-inline-md {
