@@ -1,15 +1,17 @@
 import { listItems } from "@/constants";
 import { CalculatorHelper, GeneratorHelper } from "@/helpers";
 import { PasswordOptions } from "@/models";
-import React, { useCallback, useState } from "react";
+import React, { memo, useCallback, useState } from "react";
 import { BsFillArrowRightSquareFill } from "react-icons/bs";
-import CharacterRangeInput from "./parts/CharacterRangeInput";
-import CheckList from "./parts/CheckList";
-import PasswordPlaceholder from "./parts/PasswordPlaceholder";
-import ProgressBar from "./parts/ProgressBar";
-import QuantityRangeInput from "./parts/QuantityRangeInput";
-import StrengthMeter from "./parts/StrengthMeter";
-import InstructionGuide from "./parts/InstructionGuide";
+import {
+  CharacterRangeInput,
+  CheckList,
+  InstructionGuide,
+  PasswordPlaceholder,
+  ProgressBar,
+  QuantityRangeInput,
+  StrengthMeter,
+} from "./parts";
 
 const PasswordGenerator = () => {
   const [checkItems, setCheckedItems] = useState<PasswordOptions>({});
@@ -61,7 +63,7 @@ const PasswordGenerator = () => {
   }, [checkItems, quantity]);
 
   return (
-    <main className="main-grid grid container">
+    <main className="main-grid grid container generator-wrapper">
       <div className="main-grid grid container-section">
         <PasswordPlaceholder
           setCopyBtnActive={setCopyBtnActive}
@@ -77,7 +79,7 @@ const PasswordGenerator = () => {
         <InstructionGuide />
       </div>
 
-      <div className="grid bg-light padding-md">
+      <div className="grid bg-light padding-md settings-block">
         <QuantityRangeInput
           quantity={quantity}
           handleQuantityChange={handleQuantityChange}
@@ -116,4 +118,4 @@ const PasswordGenerator = () => {
   );
 };
 
-export default PasswordGenerator;
+export default memo(PasswordGenerator);

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import ThemeSwitcher from "./ThemeSwitcher";
+import { memo } from "react";
 
 type HeaderType = {
   title: string;
@@ -22,4 +23,4 @@ const Header = ({ title, withBackButton = false }: HeaderType) => {
   );
 };
 
-export default Header;
+export default memo(Header);

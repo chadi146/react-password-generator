@@ -1,7 +1,7 @@
 import { useTheme } from "next-themes";
 import { memo, useCallback, useEffect, useState } from "react";
 import { FaMoon, FaSun } from "react-icons/fa";
-import "../../styles/themeSwitcher.css";
+import "../../styles/themeSwitcher.scss";
 
 const ThemeSwitcher = () => {
   const { systemTheme, theme, setTheme } = useTheme();

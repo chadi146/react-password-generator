@@ -1,12 +1,10 @@
 import { listItems } from "@/constants";
 import { AnalyzerHelper, CSVHelper } from "@/helpers";
 import { PasswordAnalysis, PasswordOptions } from "@/models";
-import React, { ChangeEvent, useCallback, useState } from "react";
+import React, { ChangeEvent, memo, useCallback, useState } from "react";
 import { GrPowerReset } from "react-icons/gr";
 import { toast } from "react-toastify";
-import CharacterRangeInput from "./parts/CharacterRangeInput";
-import CheckList from "./parts/CheckList";
-import StrengthMeter from "./parts/StrengthMeter";
+import { CharacterRangeInput, CheckList, EvaluationResultList } from "./parts";
 
 const PasswordUploader = () => {
   const [passwords, setPasswords] = useState<PasswordAnalysis[]>([]);
@@ -74,7 +72,7 @@ const PasswordUploader = () => {
   );
 
   return (
-    <main className="main-grid | grid container">
+    <main className="main-grid grid container uploader-wrapper">
       <div className="wrapper-upload">
         <input
           type="file"
@@ -88,7 +86,7 @@ const PasswordUploader = () => {
           }}
         />
       </div>
-      <div className="grid bg-light padding-md">
+      <div className="grid bg-light padding-md settings-block">
         <CharacterRangeInput
           length={length}
           handleLengthChange={handleLengthChange}
@@ -100,30 +98,11 @@ const PasswordUploader = () => {
           onCheckedItemsChange={ItemsCheckedHandler}
         />
       </div>
-      {passwords && passwords.length > 0 && (
-        <details open>
-          <summary>
-            <p className="settings">Evaluated Passwords</p>
-          </summary>
-          <div
-            style={{
-              maxHeight: "400px",
-              overflowX: "auto",
-            }}
-          >
-            {passwords.map((item) => (
-              <React.Fragment key={item.id}>
-                <StrengthMeter
-                  strength={item.strength}
-                  passwordToEvaluate={item.password}
-                />
-              </React.Fragment>
-            ))}
-          </div>
-        </details>
-      )}
+      <div className="grid bg-light padding-md">
+        <EvaluationResultList passwords={passwords} />
+      </div>
     </main>
   );
 };
 
-export default PasswordUploader;
+export default memo(PasswordUploader);

@@ -5,11 +5,6 @@ import { CgPassword } from "react-icons/cg";
 import { MdLockPerson } from "react-icons/md";
 import { PiPasswordBold } from "react-icons/pi";
 
-// TODO: add all features existing in https://passwordsgenerator.net/plus/
-// TODO: implement google extension feature
-// TODO: enhance light mode
-// TODO: change a bit the UI/UX design
-// TODO: at the end check for mem leakage and performance
 const Index = () => {
   return (
     <>

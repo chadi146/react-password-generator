@@ -31,7 +31,12 @@ const StrengthMeter = ({
     const bars = [];
 
     for (let i = 1; i <= 4; i++) {
-      const ceiledStrength = Math.ceil(strength);
+      const ceiledStrength =
+        Math.ceil(strength) < 1
+          ? 1
+          : Math.ceil(strength) < 4
+          ? Math.ceil(strength)
+          : 4;
       const isActive = i <= ceiledStrength;
       const barStyle = {
         "--color": isActive ? getBarColor(ceiledStrength) : undefined,

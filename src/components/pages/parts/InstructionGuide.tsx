@@ -4,7 +4,7 @@ const InstructionGuide = () => {
   return (
     <div
       className="guide-wrapper flex flex-column bg-light"
-      style={{ "--gap": "0.5rem", height: "100%", padding: "20px", maxWidth: '1000px' } as any}
+      style={{ "--gap": "0.5rem", height: "100%", padding: "20px" } as any}
     >
       <label className="fs-lg uppercase text-center">How to guide 💡</label>
 
@@ -38,8 +38,8 @@ const InstructionGuide = () => {
           symbol.
         </li>
         <li>
-          Do not let your Web browsers to store your passwords, since all passwords saved in
-          Web browsers can be revealed easily.
+          Do not let your Web browsers to store your passwords, since all
+          passwords saved in Web browsers can be revealed easily.
         </li>
       </ul>
     </div>
